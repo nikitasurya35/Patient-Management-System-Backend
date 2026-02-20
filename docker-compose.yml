@@ -1,0 +1,30 @@
+services:
+  spring-app:
+    build: . #used to build the image
+    image: patientservice #sets image name
+    container_name: patient-management
+    environment:
+      SPRING_PROFILES_ACTIVE: docker #Used for telling spring which application property file to be used
+    ports:
+      - "4000:4000"
+    networks:
+      - "ps-internal"
+
+  postgres:
+    image: postgres:16
+    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/PatientManagementSystem
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ps1234
+      POSTGRES_DB: Patient-Management-System
+    ports:
+      - 5433:5432
+    networks:
+      - "ps-internal"
+
+networks:
+  ps-internal:
+    driver: bridge
+
+#  docker-compose down [command to down the service]
+#  docker-compose up --build [command to build the service]
