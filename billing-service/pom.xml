@@ -59,6 +59,7 @@
     </dependencies>
 
     <build>
+        <finalName>billing_service</finalName>
         <extensions>
             <!-- Ensure OS compatibility for protoc -->
             <extension>
