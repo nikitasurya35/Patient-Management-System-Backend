@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 public class BillingGrpcService extends BillingServiceGrpc.BillingServiceImplBase {
 
     private static final Logger log = LoggerFactory.getLogger(BillingGrpcService.class);
-
     @Override
-    public void CreateBillingAccount(BillingRequest billingRequest, StreamObserver<BillingResponse> billingResponseStreamObserver) {
+    public void createBillingAccount(BillingRequest billingRequest, StreamObserver<BillingResponse> billingResponseStreamObserver) {
         log.info("Billing Request is::: ", billingRequest.toString());
         //Business Logic
-        BillingResponse response = BillingResponse.newBuilder().setAccId("1234").setStatus("SUCCESS").build();
+        BillingResponse response = BillingResponse.newBuilder().setAccId("Testing").setStatus("SUCCESS").build();
         billingResponseStreamObserver.onNext(response);
         billingResponseStreamObserver.onCompleted();
 
     }
+
 }
