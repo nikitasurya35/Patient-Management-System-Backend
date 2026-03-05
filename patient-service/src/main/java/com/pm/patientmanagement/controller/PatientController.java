@@ -34,7 +34,6 @@ public class PatientController {
     @Operation(summary = "Create New Patient")
     public ResponseEntity<PatientResponseDTO> createPatients(@Valid @RequestBody PatientCreateDto patientCreateDto){
         //System.out.println(patientCreateDto);
-        System.out.println("ans:::: " +patientCreateDto.getDob());
         PatientResponseDTO dts = patientService.createPatient(patientCreateDto);
         return ResponseEntity.ok().body(dts);
     }

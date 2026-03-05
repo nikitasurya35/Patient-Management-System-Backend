@@ -7,7 +7,10 @@ import com.pm.patientmanagement.Repo.PatientRepo;
 import com.pm.patientmanagement.dto.PatientCreateDto;
 import com.pm.patientmanagement.dto.PatientResponseDTO;
 import com.pm.patientmanagement.dto.PatientUpdateDto;
+import com.pm.patientmanagement.grpc.BillingServiceGrpcClient;
 import com.pm.patientmanagement.model.Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,9 +20,13 @@ import java.util.UUID;
 @Service
 public class PatientService {
 
+    private static final Logger log = LoggerFactory.getLogger(PatientService.class);
     private PatientRepo PatientRepo;
-    public PatientService(PatientRepo patientRepo) {
+    private BillingServiceGrpcClient BillingServiceGrpcClient; //grpc client - 03/02/2026
+
+    public PatientService(PatientRepo patientRepo, BillingServiceGrpcClient billingServiceGrpcClient) {
         PatientRepo = patientRepo;
+        BillingServiceGrpcClient = billingServiceGrpcClient; //grpc client - 03/02/2026
     }
 
     public List<PatientResponseDTO> getPatients (){
@@ -37,7 +44,11 @@ public class PatientService {
 
         Patient patient =  PatientRepo.save(PAtientMapping.toPatient(patientCreateDto));
 
+        BillingServiceGrpcClient.createBillingAcc(patient.getId().toString(),patient.getName().toString(),patient.getEmail().toString()); //grpc client - 03/02/2026
+
         PatientResponseDTO dto = PAtientMapping.dto(patient);
+
+        log.info("Patient created is::: "+dto.toString());
         return dto;
     }
 

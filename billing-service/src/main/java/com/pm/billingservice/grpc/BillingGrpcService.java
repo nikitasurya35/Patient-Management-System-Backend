@@ -14,9 +14,9 @@ public class BillingGrpcService extends BillingServiceGrpc.BillingServiceImplBas
     private static final Logger log = LoggerFactory.getLogger(BillingGrpcService.class);
     @Override
     public void createBillingAccount(BillingRequest billingRequest, StreamObserver<BillingResponse> billingResponseStreamObserver) {
-        log.info("Billing Request is::: ", billingRequest.toString());
+        log.info("Request received at Billing-Service is::: {}", billingRequest.toString());
         //Business Logic
-        BillingResponse response = BillingResponse.newBuilder().setAccId("Testing").setStatus("SUCCESS").build();
+        BillingResponse response = BillingResponse.newBuilder().setAccId("billing-service").setStatus("SUCCESS").build();
         billingResponseStreamObserver.onNext(response);
         billingResponseStreamObserver.onCompleted();
 
