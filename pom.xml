@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -11,8 +11,8 @@
 	<groupId>com.pm</groupId>
 	<artifactId>patientmanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>patient-management</name>
+	<packaging>pom</packaging>
+	<name>patient-management</name>
 	<description>project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -21,11 +21,11 @@
 	<developers>
 		<developer/>
 	</developers>
-    <modules>
-        <module>patient-service</module>
+	<modules>
+		<module>patient-service</module>
 		<module>billing-service</module>
 	</modules>
-    <scm>
+	<scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
@@ -51,5 +51,10 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+	</dependencies>
 </project>
-

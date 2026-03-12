@@ -26,6 +26,18 @@ services:
     networks:
       - "ps-internal"
 
+  analytics-service:
+    build:
+      context: ./analytics-service #used to build the image
+    image: analyticsservice #sets image name
+    container_name: analytics-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker #Used for telling spring which application property file to be used
+    ports:
+      - "4002:4002"
+    networks:
+      - "ps-internal"
+
   postgres:
     image: postgres:16
     environment:

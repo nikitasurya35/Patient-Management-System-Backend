@@ -14,6 +14,7 @@ public class KafkaProducer {
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
 
     public KafkaProducer(KafkaTemplate<String, byte[]> kafkaTemplate) {
+
         this.kafkaTemplate = kafkaTemplate;
     }
 
