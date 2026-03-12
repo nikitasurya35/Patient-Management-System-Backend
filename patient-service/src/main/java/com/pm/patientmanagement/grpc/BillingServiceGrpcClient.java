@@ -20,8 +20,8 @@ public class BillingServiceGrpcClient {
             @Value("${billing.service.port:9001}") int serverPort
     ) {
         log.info("Creating grpc service client");
-        log.info("Server address is {}", serverAddress);
-        log.info("Server port is {}", serverPort);
+        log.info("Server address is :::: {}", serverAddress);
+        log.info("Server port is :::: {}", serverPort);
 
         ManagedChannel channel = ManagedChannelBuilder.forAddress(serverAddress, serverPort).usePlaintext().build();
         blockingStub = BillingServiceGrpc.newBlockingStub(channel);

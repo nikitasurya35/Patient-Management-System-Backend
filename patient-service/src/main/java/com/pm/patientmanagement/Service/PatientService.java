@@ -8,6 +8,7 @@ import com.pm.patientmanagement.dto.PatientCreateDto;
 import com.pm.patientmanagement.dto.PatientResponseDTO;
 import com.pm.patientmanagement.dto.PatientUpdateDto;
 import com.pm.patientmanagement.grpc.BillingServiceGrpcClient;
+import com.pm.patientmanagement.kafka.KafkaProducer;
 import com.pm.patientmanagement.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +24,12 @@ public class PatientService {
     private static final Logger log = LoggerFactory.getLogger(PatientService.class);
     private PatientRepo PatientRepo;
     private BillingServiceGrpcClient BillingServiceGrpcClient; //grpc client - 03/02/2026
+    private final KafkaProducer kafkaProducer;
 
-    public PatientService(PatientRepo patientRepo, BillingServiceGrpcClient billingServiceGrpcClient) {
+    public PatientService(PatientRepo patientRepo, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer) {
         PatientRepo = patientRepo;
         BillingServiceGrpcClient = billingServiceGrpcClient; //grpc client - 03/02/2026
+        this.kafkaProducer = kafkaProducer;
     }
 
     public List<PatientResponseDTO> getPatients (){
@@ -45,6 +48,9 @@ public class PatientService {
         Patient patient =  PatientRepo.save(PAtientMapping.toPatient(patientCreateDto));
 
         BillingServiceGrpcClient.createBillingAcc(patient.getId().toString(),patient.getName().toString(),patient.getEmail().toString()); //grpc client - 03/02/2026
+
+
+        kafkaProducer.sendEvent(patient);
 
         PatientResponseDTO dto = PAtientMapping.dto(patient);
 
